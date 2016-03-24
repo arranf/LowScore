@@ -27,10 +27,10 @@ public class Login extends AppCompatActivity {
     //region classvariables
     private Button loginButton;
 
-    private final String CLIENT_ID = "***REMOVED***";
+    private final String CLIENT_ID = "";
     private final String REDIRECT_URI = "isthereanydeal://authorise";
     private final String TAG = "Login";
-    private final String CLIENT_SECRET = "***REMOVED***";
+    private final String CLIENT_SECRET = "";
     private SharedPreferences preferences;
     //endregion
 
