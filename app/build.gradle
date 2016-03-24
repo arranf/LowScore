@@ -16,7 +16,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "CLIENT_SECRET", "\""+getClientSecret()+"\""
+            variant.buildConfigField "String", "CLIENT_ID", "\""+getClientId()+"\""
+        }
     }
+}
+
+def getClientSecret(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('keys.properties')))
+    return props['CLIENT_SECRET']
+}
+
+def getClientId(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('keys.properties')))
+    return props['CLIENT_ID']
 }
 
 dependencies {
