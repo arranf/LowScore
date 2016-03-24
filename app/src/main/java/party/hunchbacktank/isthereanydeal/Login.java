@@ -1,10 +1,12 @@
 package party.hunchbacktank.isthereanydeal;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,7 +17,6 @@ import party.hunchbacktank.isthereanydeal.model.authentication.Token;
 import party.hunchbacktank.isthereanydeal.networking.token.TokenEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,8 +31,8 @@ public class Login extends AppCompatActivity {
     private final String CLIENT_ID = BuildConfig.CLIENT_ID;
     private final String REDIRECT_URI = "isthereanydeal://authorise";
     private final String TAG = "Login";
-    private final String CLIENT_SECRET = BuildConfig.CLIENT_SECRET;
     private SharedPreferences preferences;
+    private final String OAUTHPREFERENCES = "OAuthPreferences";
     //endregion
 
     //region activityLifecycle
@@ -71,18 +72,23 @@ public class Login extends AppCompatActivity {
 
     public void getAccessToken(String code) {
         Retrofit.Builder builder = new Retrofit.Builder()
-                //.baseUrl("https://api.isthereanydeal.com")
-                .baseUrl("http://requestb.in")
+                .baseUrl("https://api.isthereanydeal.com")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
         TokenEndpoint tokenService = retrofit.create(TokenEndpoint.class);
 
+        String CLIENT_SECRET = BuildConfig.CLIENT_SECRET;
         Call<Token> call = tokenService.getToken("authorization_code", code, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
         call.enqueue(new Callback<Token>() {
             @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                String body = response.body().toString();
+            public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+                SharedPreferences preferences = getSharedPreferences(OAUTHPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                String token = response.body().getAccessToken();
+                editor.putString("token", response.body().getAccessToken());
+                editor.apply();
+                Log.d(TAG, token);
             }
 
             @Override

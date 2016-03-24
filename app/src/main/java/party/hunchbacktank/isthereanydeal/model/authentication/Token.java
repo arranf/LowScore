@@ -1,5 +1,7 @@
 package party.hunchbacktank.isthereanydeal.model.authentication;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,10 +9,14 @@ import java.util.Map;
  * Created by Arran on 14/03/2016.
  */
 public class Token {
+    @SerializedName("access_token")
     private String accessToken;
+    @SerializedName("expires_in")
     private Integer expiresIn;
+    @SerializedName("refresh)token")
     private String refreshToken;
     private String scope;
+    @SerializedName("token_type")
     private String tokenType;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
