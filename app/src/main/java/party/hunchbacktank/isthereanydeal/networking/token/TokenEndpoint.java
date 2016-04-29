@@ -12,5 +12,10 @@ import retrofit2.http.POST;
 public interface TokenEndpoint {
     @FormUrlEncoded
     @POST("/oauth/token")
-    Call<Token> getToken(@Field("grant_type") String grantType, @Field("code") String code, @Field("client_id") String clientId, @Field("client_secret") String clientSecret, @Field("redirect_uri") String redirectUri);
+    Call<Token> authorise(@Field("grant_type") String grantType, @Field("code") String code, @Field("client_id") String clientId, @Field("client_secret") String clientSecret, @Field("redirect_uri") String redirectUri);
+
+    @FormUrlEncoded
+    @POST("/oauth/token")
+    Call<Token> refresh(@Field("grant_type") String grantType, @Field("refresh_token") String code, @Field("client_id") String clientId, @Field("client_secret") String clientSecret);
+
 }

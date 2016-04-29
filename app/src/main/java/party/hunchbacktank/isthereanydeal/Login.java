@@ -12,8 +12,14 @@ import android.widget.Button;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import party.hunchbacktank.isthereanydeal.model.authentication.Token;
+import party.hunchbacktank.isthereanydeal.model.authentication.TokenRequestType;
 import party.hunchbacktank.isthereanydeal.networking.token.TokenEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Login extends AppCompatActivity {
 
-    //region classvariables
+    public static final int ACCESS_TOKEN_LIFESPAN = 2073595;
     private Button loginButton;
 
     private final String CLIENT_ID = BuildConfig.CLIENT_ID;
@@ -33,7 +39,6 @@ public class Login extends AppCompatActivity {
     private final String TAG = "Login";
     private SharedPreferences preferences;
     private final String OAUTHPREFERENCES = "OAuthPreferences";
-    //endregion
 
     //region activityLifecycle
     @Override
@@ -48,17 +53,49 @@ public class Login extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Uri uri = getIntent().getData();
-        //TODO Handle rejections
+        //TODO Handle URI exceptional events
         if (uri != null && uri.toString().startsWith(REDIRECT_URI) && uri.getQueryParameter("state").equals(preferences.getString("State", "none"))) {
             String code = uri.getQueryParameter("code");
             getAccessToken(code);
-        } else {
-            // TODO throw exception
+        }
+        else {
+            checkTokenExpiry();
         }
     }
     //endregion
 
     //region Methods
+    private void checkTokenExpiry() {
+        String expiryDate = preferences.getString("accessTokenExpiry", null);
+        if (expiryDate != null) {
+            Date expiryDateTime = null;
+            try {
+                expiryDateTime = new SimpleDateFormat().parse(expiryDate);
+            } catch (ParseException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            //TODO Rework this to only refresh if the time is less than 23 days
+            if (expiryDateTime != null && expiryDateTime.compareTo(new Date()) <= 0) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("accessToken");
+                editor.apply();
+                // TODO Prompt user to reauthenticate
+            } else {
+                String refreshToken = preferences.getString("refreshToken", null);
+                if (refreshToken != null) {
+                    refreshAccessToken(refreshToken);
+                }
+                startMainActivity();
+            }
+        }
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     protected String generateUri() {
         SecureRandom random = new SecureRandom();
         String state = new BigInteger(130, random).toString(32);
@@ -70,6 +107,38 @@ public class Login extends AppCompatActivity {
                 CLIENT_ID, state, REDIRECT_URI);
     }
 
+    //TODO Move these somewhere as these calls will want to be repeated
+    //TODO Collapse refresh and get into smaller methods relying on a generic AccessToken method, they're too similar
+    public void refreshAccessToken(String refreshToken){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://api.isthereanydeal.com")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        TokenEndpoint tokenService = retrofit.create(TokenEndpoint.class);
+        Call<Token> call = tokenService.authorise(TokenRequestType.REFRESH.toString(), refreshToken, CLIENT_ID, BuildConfig.CLIENT_SECRET, REDIRECT_URI);
+        call.enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
+                SharedPreferences preferences = getSharedPreferences(OAUTHPREFERENCES, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("accessToken", response.body().getAccessToken());
+                editor.putString("refreshToken", response.body().getRefreshToken());
+                Calendar currentDateTime = new GregorianCalendar();
+                currentDateTime.add(Calendar.SECOND, ACCESS_TOKEN_LIFESPAN);
+                editor.putString("accessTokenExpiry", currentDateTime.toString());
+                editor.apply();
+                startMainActivity();
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, Throwable e) {
+                e.printStackTrace();
+                //TODO Handle better? Perhaps it can silently fail.
+            }
+        });
+    }
+
     public void getAccessToken(String code) {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.isthereanydeal.com")
@@ -79,21 +148,27 @@ public class Login extends AppCompatActivity {
         TokenEndpoint tokenService = retrofit.create(TokenEndpoint.class);
 
         String CLIENT_SECRET = BuildConfig.CLIENT_SECRET;
-        Call<Token> call = tokenService.getToken("authorization_code", code, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+        Call<Token> call = tokenService.authorise(TokenRequestType.CODE.toString(), code, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, retrofit2.Response<Token> response) {
-                SharedPreferences preferences = getSharedPreferences(OAUTHPREFERENCES, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                String token = response.body().getAccessToken();
-                editor.putString("token", response.body().getAccessToken());
-                editor.apply();
-                Log.d(TAG, token);
+                if (response.body() != null) {
+                    SharedPreferences preferences = getSharedPreferences(OAUTHPREFERENCES, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("accessToken", response.body().getAccessToken());
+                    editor.putString("refreshToken", response.body().getRefreshToken());
+                    Calendar currentDateTime = new GregorianCalendar();
+                    currentDateTime.add(Calendar.SECOND, ACCESS_TOKEN_LIFESPAN);
+                    editor.putString("accessTokenExpiry", currentDateTime.toString());
+                    editor.apply();
+                }
+                startMainActivity();
             }
 
             @Override
             public void onFailure(Call<Token> call, Throwable e) {
                 e.printStackTrace();
+                //TODO Prompt for second attempt, explain error to user
             }
         });
     }

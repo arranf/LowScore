@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">IsThereAnyDeal</string>
     <string name="oauth_prompt">Sign in with IsThereAnyDeal</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

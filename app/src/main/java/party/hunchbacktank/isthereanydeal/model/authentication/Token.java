@@ -13,7 +13,7 @@ public class Token {
     private String accessToken;
     @SerializedName("expires_in")
     private Integer expiresIn;
-    @SerializedName("refresh)token")
+    @SerializedName("refresh_token")
     private String refreshToken;
     private String scope;
     @SerializedName("token_type")

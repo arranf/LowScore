@@ -19,6 +19,7 @@ android {
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "CLIENT_SECRET", "\""+getClientSecret()+"\""
             variant.buildConfigField "String", "CLIENT_ID", "\""+getClientId()+"\""
+            variant.buildConfigField "String", "API_KEY", "\""+getAPIKey()+"\""
         }
     }
 }
@@ -35,6 +36,12 @@ def getClientId(){
     return props['CLIENT_ID']
 }
 
+def getAPIKey(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('keys.properties')))
+    return props['API_KEY']
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -44,4 +51,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
 }

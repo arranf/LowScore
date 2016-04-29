@@ -1,37 +1,37 @@
 package party.hunchbacktank.isthereanydeal.model.authentication;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Arran on 14/03/2016.
  */
 public class TokenRequest {
-    String grant_type;
-    String code;
-    String redirect_uri;
-    String client_id;
-    String client_secret;
+    @SerializedName("refresh_token")
+    private String refreshToken;
+    private String code;
+    @SerializedName("redirect_uri")
+    private String redirectUri;
+    @SerializedName("client_id")
+    private String clientId;
+    @SerializedName("client_secret")
+    private String clientSecret;
+    @SerializedName("grant_type")
+    private transient TokenRequestType type;
 
-    public TokenRequest(String grant_type, String code, String redirect_uri, String client_id, String client_secret) {
-        this.grant_type = grant_type;
+    public TokenRequest(TokenRequestType type, String code, String redirectUri, String clientId, String clientSecret) {
+        this.type = type;
         this.code = code;
-        this.redirect_uri = redirect_uri;
-        this.client_id = client_id;
-        this.client_secret = client_secret;
+        this.redirectUri = redirectUri;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
     }
 
-    public String getGrant_type() {
-        return grant_type;
+    public String getRedirectUri() {
+        return redirectUri;
     }
 
-    public void setGrant_type(String grant_type) {
-        this.grant_type = grant_type;
-    }
-
-    public String getRedirect_uri() {
-        return redirect_uri;
-    }
-
-    public void setRedirect_uri(String redirect_uri) {
-        this.redirect_uri = redirect_uri;
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
     }
 
     public String getCode() {
@@ -42,19 +42,35 @@ public class TokenRequest {
         this.code = code;
     }
 
-    public String getClient_id() {
-        return client_id;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClient_id(String client_id) {
-        this.client_id = client_id;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
-    public String getClient_secret() {
-        return client_secret;
+    public String getClientSecret() {
+        return clientSecret;
     }
 
-    public void setClient_secret(String client_secret) {
-        this.client_secret = client_secret;
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public TokenRequestType getType() {
+        return type;
+    }
+
+    public void setType(TokenRequestType type) {
+        this.type = type;
     }
 }
