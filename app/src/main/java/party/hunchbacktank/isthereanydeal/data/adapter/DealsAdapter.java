@@ -16,13 +16,13 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.MyViewHolder
     private List<Deal> dealList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, priceCut, cut;
+        public TextView title, shop, cut;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            cut = (TextView) view.findViewById(R.id.genre);
-            priceCut = (TextView) view.findViewById(R.id.year);
+            cut = (TextView) view.findViewById(R.id.cut);
+            shop = (TextView) view.findViewById(R.id.shop);
         }
     }
 
@@ -43,8 +43,8 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Deal deal = dealList.get(position);
         holder.title.setText(deal.getTitle());
-        holder.cut.setText(deal.getPriceCut());
-        holder.priceCut.setText(deal.getPriceCut());
+        holder.cut.setText(deal.getPriceCut() + "%");
+        holder.shop.setText(deal.getShop().getName());
     }
 
     @Override

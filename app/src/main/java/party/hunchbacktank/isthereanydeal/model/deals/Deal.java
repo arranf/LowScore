@@ -111,7 +111,7 @@ public class Deal {
     /**
      * 
      * @return
-     *     The priceCut
+     *     The shop
      */
     public Integer getPriceCut() {
         return priceCut;

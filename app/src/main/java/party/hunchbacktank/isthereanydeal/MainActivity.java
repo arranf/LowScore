@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        getDeals();
     }
 
     @Override
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         DealEndpoint dealEndpoint = retrofit.create(DealEndpoint.class);
 
         String apiKey = BuildConfig.API_KEY;
-        Call<DealResponse> call = dealEndpoint.fetch("UK", apiKey, "UK", 0, 20);
+        Call<DealResponse> call = dealEndpoint.fetch("uk", apiKey, "uk", 0);
         call.enqueue(new Callback<DealResponse>() {
             @Override
             public void onResponse(Call<DealResponse> call, retrofit2.Response<DealResponse> response) {

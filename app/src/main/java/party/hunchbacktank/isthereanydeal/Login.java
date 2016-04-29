@@ -86,9 +86,9 @@ public class Login extends AppCompatActivity {
                 if (refreshToken != null) {
                     refreshAccessToken(refreshToken);
                 }
-                startMainActivity();
             }
         }
+        startMainActivity();
     }
 
     private void startMainActivity() {

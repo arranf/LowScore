@@ -11,7 +11,7 @@ public class Data {
     @SerializedName("count")
     @Expose
     private Integer count;
-    @SerializedName("deals")
+    @SerializedName("list")
     @Expose
     private java.util.List<Deal> deals = new ArrayList<Deal>();
     @SerializedName("urls")
