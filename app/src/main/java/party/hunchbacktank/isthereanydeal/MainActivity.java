@@ -1,5 +1,6 @@
 package party.hunchbacktank.isthereanydeal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,8 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
     private List<Deal> deals = new ArrayList<>();
 
     @Override
@@ -33,17 +34,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Recommended Deals");
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         setSupportActionBar(toolbar);
 
-        mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        //TODO Sort out adapter
-        mAdapter = new DealsAdapter(deals);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        //TODO Rewrite the adapter for our needs
+        adapter = new DealsAdapter(recyclerView, deals);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     List<Deal> dealList = response.body().getData().getDeals();
                     deals.addAll(dealList);
-                    mAdapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -89,5 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }
