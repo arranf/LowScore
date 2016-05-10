@@ -1,8 +1,6 @@
 package party.hunchbacktank.isthereanydeal;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,22 +9,24 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import party.hunchbacktank.isthereanydeal.data.adapter.DealsAdapter;
 import party.hunchbacktank.isthereanydeal.model.deals.Deal;
 import party.hunchbacktank.isthereanydeal.model.deals.DealResponse;
-import party.hunchbacktank.isthereanydeal.networking.deal.DealEndpoint;
+import party.hunchbacktank.isthereanydeal.networking.isthereanydeal.deal.DealEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Deal> deals = new ArrayList<>();
@@ -36,29 +36,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         toolbar.setTitle("Recommended Deals");
-
         setSupportActionBar(toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         //TODO Rewrite the adapter for our needs
         adapter = new DealsAdapter(recyclerView, deals);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getDeals();
     }
 
@@ -88,13 +76,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_refresh){
-            getDeals();
+            getDeals(true);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void getDeals() {
+    public void getDeals(){
+        getDeals(false);
+    }
+
+    public void getDeals(final boolean refresh) {
         Log.d(TAG, "Fetching deals");
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl("https://api.isthereanydeal.com")
@@ -110,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<DealResponse> call, retrofit2.Response<DealResponse> response) {
                 if (response.body() != null) {
                     List<Deal> dealList = response.body().getData().getDeals();
+                    if (refresh && !deals.isEmpty()){
+                        deals.clear();
+                    }
                     for (Deal deal: dealList) {
                         deals.add(deal);
                         adapter.notifyDataSetChanged();

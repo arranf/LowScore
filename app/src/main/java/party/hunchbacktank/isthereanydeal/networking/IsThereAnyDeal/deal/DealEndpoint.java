@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.networking.deal;
+package party.hunchbacktank.isthereanydeal.networking.isthereanydeal.deal;
 
 import party.hunchbacktank.isthereanydeal.model.deals.DealResponse;
 import retrofit2.Call;

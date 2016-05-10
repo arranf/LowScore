@@ -3,6 +3,8 @@
     package="party.hunchbacktank.isthereanydeal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To cache -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,7 +35,7 @@
         <activity
             android:name=".DisplayGameActivity"
             android:label="@string/title_activity_display_game"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

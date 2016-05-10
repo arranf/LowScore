@@ -20,7 +20,7 @@ import java.util.GregorianCalendar;
 
 import party.hunchbacktank.isthereanydeal.model.authentication.Token;
 import party.hunchbacktank.isthereanydeal.model.authentication.TokenRequestType;
-import party.hunchbacktank.isthereanydeal.networking.token.TokenEndpoint;
+import party.hunchbacktank.isthereanydeal.networking.isthereanydeal.token.TokenEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;

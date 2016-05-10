@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.networking.token;
+package party.hunchbacktank.isthereanydeal.networking.isthereanydeal.token;
 
 import party.hunchbacktank.isthereanydeal.model.authentication.Token;
 import retrofit2.Call;
