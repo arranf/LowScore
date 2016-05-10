@@ -22,6 +22,7 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealHolder> 
     private List<Deal> dealList;
     private RecyclerView recyclerView;
     private final OnClickListener onClickListener = new DealListOnClick();
+    private final ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
     public DealsAdapter(RecyclerView recyclerView, List<Deal> dealList) {
         this.recyclerView = recyclerView;
@@ -45,6 +46,7 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealHolder> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.deals, parent, false);
         itemView.setOnClickListener(onClickListener);
+        itemView.setLayoutParams(layoutParams);
         return new DealHolder(itemView);
     }
 

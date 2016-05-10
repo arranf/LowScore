@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setLayoutManager(layoutManager);
         //TODO Rewrite the adapter for our needs
         adapter = new DealsAdapter(recyclerView, deals);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         getDeals();
