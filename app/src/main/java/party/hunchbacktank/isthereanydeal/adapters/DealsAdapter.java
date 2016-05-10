@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.display;
+package party.hunchbacktank.isthereanydeal.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,48 +11,48 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import party.hunchbacktank.isthereanydeal.activities.DisplayGameActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import party.hunchbacktank.isthereanydeal.R;
+import party.hunchbacktank.isthereanydeal.activities.DisplayGameActivity;
 import party.hunchbacktank.isthereanydeal.model.deals.Deal;
 
-public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.MyDealHolder> {
+public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealHolder> {
 
     private List<Deal> dealList;
     private RecyclerView recyclerView;
     private final OnClickListener onClickListener = new DealListOnClick();
-
-    public class MyDealHolder extends RecyclerView.ViewHolder {
-        public TextView title, shop, cut;
-        public String plain;
-
-        public MyDealHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            cut = (TextView) view.findViewById(R.id.cut);
-            shop = (TextView) view.findViewById(R.id.shop);
-        }
-    }
-
 
     public DealsAdapter(RecyclerView recyclerView, List<Deal> dealList) {
         this.recyclerView = recyclerView;
         this.dealList = dealList;
     }
 
+    public class DealHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.title) TextView title;
+        @BindView(R.id.cut) TextView cut;
+        @BindView(R.id.shop) TextView shop;
+
+        public DealHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+
     @Override
-    public MyDealHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DealHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.deals, parent, false);
         itemView.setOnClickListener(onClickListener);
-        return new MyDealHolder(itemView);
+        return new DealHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyDealHolder holder, int position) {
+    public void onBindViewHolder(DealHolder holder, int position) {
         Deal deal = dealList.get(position);
-        holder.plain = deal.getPlain();
         holder.title.setText(deal.getTitle());
-        holder.cut.setText(deal.getPriceCut() + "%");
+        holder.cut.setText(String.format("%s%%", String.valueOf(deal.getPriceCut())));
         holder.shop.setText(deal.getShop().getName());
     }
 

@@ -26,8 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
 import party.hunchbacktank.isthereanydeal.R;
-import party.hunchbacktank.isthereanydeal.display.PicassoSwitcherHelper;
-import party.hunchbacktank.isthereanydeal.display.ViewPagerAdapter;
+import party.hunchbacktank.isthereanydeal.helpers.PicassoSwitcherHelper;
+import party.hunchbacktank.isthereanydeal.adapters.ViewPagerAdapter;
 import party.hunchbacktank.isthereanydeal.fragments.GameInfo;
 import party.hunchbacktank.isthereanydeal.fragments.GamePrices;
 import party.hunchbacktank.isthereanydeal.model.steam.AppDetail;
@@ -42,7 +42,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     @BindView(R.id.gamescreens) ImageSwitcher imageSwitcher;
     private PicassoSwitcherHelper picassoSwitcherHelper;
     private List<Uri> imageUris = new ArrayList<>();
-    private int currentScrenshot;
+    private int currentScreenshot;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.game_detail_tabs) TabLayout tabLayout;
@@ -117,7 +117,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             }
             Picasso.with(this).load(imageUris.get(0))
                     .into(picassoSwitcherHelper);
-            currentScrenshot = 0;
+            currentScreenshot = 0;
         }
     }
     //endregion
@@ -156,18 +156,18 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                     // Left to Right swipe action
                     if (x2 > x1 )
                     {
-                        if (imageUris !=null && currentScrenshot > 0) {
-                            currentScrenshot--;
-                            Picasso.with(this).load(imageUris.get(currentScrenshot))
+                        if (imageUris !=null && currentScreenshot > 0) {
+                            currentScreenshot--;
+                            Picasso.with(this).load(imageUris.get(currentScreenshot))
                                     .into(picassoSwitcherHelper);
                         }
                     }
 
                     // Right to left swipe action
-                    else if (imageUris != null && currentScrenshot < imageUris.size() )
+                    else if (imageUris != null && currentScreenshot < imageUris.size() )
                     {
-                        currentScrenshot++;
-                        Picasso.with(this).load(imageUris.get(currentScrenshot))
+                        currentScreenshot++;
+                        Picasso.with(this).load(imageUris.get(currentScreenshot))
                                 .into(picassoSwitcherHelper);
                     }
 

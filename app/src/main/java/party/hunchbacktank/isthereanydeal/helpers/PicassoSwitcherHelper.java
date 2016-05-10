@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.display;
+package party.hunchbacktank.isthereanydeal.helpers;
 
 import android.content.Context;
 import android.graphics.Bitmap;

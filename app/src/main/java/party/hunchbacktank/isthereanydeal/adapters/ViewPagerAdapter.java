@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.display;
+package party.hunchbacktank.isthereanydeal.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
