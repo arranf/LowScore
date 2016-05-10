@@ -6,4 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="itad_api">https://api.isthereanydeal.com</string>
     <string name="steam_api_base">http://store.steampowered.com/api/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

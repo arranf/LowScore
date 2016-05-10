@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal.data.adapter;
+package party.hunchbacktank.isthereanydeal.display;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import party.hunchbacktank.isthereanydeal.DisplayGameActivity;
+import party.hunchbacktank.isthereanydeal.activities.DisplayGameActivity;
 import party.hunchbacktank.isthereanydeal.R;
 import party.hunchbacktank.isthereanydeal.model.deals.Deal;
 

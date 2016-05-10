@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:layout_below="@+id/toolbar"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".DisplayGameActivity"
+    tools:context=".activities.DisplayGameActivity"
     tools:showIn="@layout/activity_display_game"
     android:gravity="top"
     android:baselineAligned="true">
@@ -28,4 +29,15 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp">
     </ImageSwitcher>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/game_detail_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabGravity="fill"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/game_detail_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 </LinearLayout>

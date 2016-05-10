@@ -18,26 +18,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         applicationVariants.all { variant ->
-            variant.buildConfigField "String", "CLIENT_SECRET", "\""+getClientSecret()+"\""
-            variant.buildConfigField "String", "CLIENT_ID", "\""+getClientId()+"\""
-            variant.buildConfigField "String", "API_KEY", "\""+getAPIKey()+"\""
+            variant.buildConfigField "String", "CLIENT_SECRET", "\"" + getClientSecret() + "\""
+            variant.buildConfigField "String", "CLIENT_ID", "\"" + getClientId() + "\""
+            variant.buildConfigField "String", "API_KEY", "\"" + getAPIKey() + "\""
         }
     }
 }
 
-def getClientSecret(){
+def getClientSecret() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('keys.properties')))
     return props['CLIENT_SECRET']
 }
 
-def getClientId(){
+def getClientId() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('keys.properties')))
     return props['CLIENT_ID']
 }
 
-def getAPIKey(){
+def getAPIKey() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('keys.properties')))
     return props['API_KEY']
@@ -46,6 +46,8 @@ def getAPIKey(){
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
@@ -55,6 +57,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:8.0.1'
-
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    compile 'com.android.support:support-v4:23.3.0'
 }

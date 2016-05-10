@@ -1,7 +1,9 @@
-package party.hunchbacktank.isthereanydeal;
+package party.hunchbacktank.isthereanydeal.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -23,7 +25,11 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
+import party.hunchbacktank.isthereanydeal.R;
 import party.hunchbacktank.isthereanydeal.display.PicassoSwitcherHelper;
+import party.hunchbacktank.isthereanydeal.display.ViewPagerAdapter;
+import party.hunchbacktank.isthereanydeal.fragments.GameInfo;
+import party.hunchbacktank.isthereanydeal.fragments.GamePrices;
 import party.hunchbacktank.isthereanydeal.model.steam.AppDetail;
 import party.hunchbacktank.isthereanydeal.model.steam.Screenshot;
 import party.hunchbacktank.isthereanydeal.networking.steam.AppDetailsEndpoint;
@@ -32,14 +38,19 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DisplayGameActivity extends AppCompatActivity {
+public class DisplayGameActivity extends AppCompatActivity implements GamePrices.OnFragmentInteractionListener{
     @BindView(R.id.gamescreens) ImageSwitcher imageSwitcher;
     private PicassoSwitcherHelper picassoSwitcherHelper;
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    private float x1;
-    static final int MIN_DISTANCE = 150;
     private List<Uri> imageUris = new ArrayList<>();
     private int currentScrenshot;
+
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.game_detail_tabs) TabLayout tabLayout;
+    @BindView(R.id.game_detail_viewpager) ViewPager viewPager;
+
+    private ViewPagerAdapter viewPagerAdapter;
+    private float x1;
+    static final int MIN_DISTANCE = 150;
     private String plain;
 
     @Override
@@ -56,6 +67,9 @@ public class DisplayGameActivity extends AppCompatActivity {
         setupImageSwitcher();
         picassoSwitcherHelper = new PicassoSwitcherHelper(this, imageSwitcher);
         getAppDetails(plain);
+
+        setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -64,6 +78,7 @@ public class DisplayGameActivity extends AppCompatActivity {
 
     }
 
+    //region LoadInfo
     private void getAppDetails(String plain){
         Retrofit.Builder builder = new Retrofit.Builder()
                 //TODO Change the string resource to butterknife
@@ -105,6 +120,7 @@ public class DisplayGameActivity extends AppCompatActivity {
             currentScrenshot = 0;
         }
     }
+    //endregion
 
     //region ImageSwitcher
     protected void setupImageSwitcher() {
@@ -163,6 +179,20 @@ public class DisplayGameActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+    //endregion
+
+    //region Tabs
+    private void setupViewPager(ViewPager viewPager) {
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new GamePrices(), "Stores");
+        viewPagerAdapter.addFragment(new GameInfo(), "Info");
+        viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+
     }
     //endregion
 

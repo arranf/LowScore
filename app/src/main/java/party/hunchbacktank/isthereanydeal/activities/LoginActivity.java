@@ -1,4 +1,4 @@
-package party.hunchbacktank.isthereanydeal;
+package party.hunchbacktank.isthereanydeal.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import party.hunchbacktank.isthereanydeal.BuildConfig;
+import party.hunchbacktank.isthereanydeal.R;
 import party.hunchbacktank.isthereanydeal.model.authentication.Token;
 import party.hunchbacktank.isthereanydeal.model.authentication.TokenRequestType;
 import party.hunchbacktank.isthereanydeal.networking.isthereanydeal.token.TokenEndpoint;
@@ -29,14 +31,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A login screen that offers login via email/password.
  */
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static final int ACCESS_TOKEN_LIFESPAN = 2073595;
     private Button loginButton;
 
     private final String CLIENT_ID = BuildConfig.CLIENT_ID;
     private final String REDIRECT_URI = "isthereanydeal://authorise";
-    private final String TAG = "Login";
+    private final String TAG = "LoginActivity";
     private SharedPreferences preferences;
     private final String OAUTHPREFERENCES = "OAuthPreferences";
 
