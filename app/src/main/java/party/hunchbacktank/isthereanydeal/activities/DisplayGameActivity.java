@@ -14,6 +14,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.squareup.picasso.Picasso;
@@ -26,10 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
 import party.hunchbacktank.isthereanydeal.R;
-import party.hunchbacktank.isthereanydeal.helpers.PicassoSwitcherHelper;
 import party.hunchbacktank.isthereanydeal.adapters.ViewPagerAdapter;
 import party.hunchbacktank.isthereanydeal.fragments.GameInfo;
 import party.hunchbacktank.isthereanydeal.fragments.GamePrices;
+import party.hunchbacktank.isthereanydeal.helpers.PicassoSwitcherHelper;
 import party.hunchbacktank.isthereanydeal.model.steam.AppDetail;
 import party.hunchbacktank.isthereanydeal.model.steam.Screenshot;
 import party.hunchbacktank.isthereanydeal.networking.steam.AppDetailsEndpoint;
@@ -43,10 +45,13 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private PicassoSwitcherHelper picassoSwitcherHelper;
     private List<Uri> imageUris = new ArrayList<>();
     private int currentScreenshot;
+    private int switcherHeight;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.game_detail_tabs) TabLayout tabLayout;
     @BindView(R.id.game_detail_viewpager) ViewPager viewPager;
+    @BindView(R.id.gamescreens_overlay) RelativeLayout overlay;
+    @BindView(R.id.overlay_text) TextView overlayText;
 
     private ViewPagerAdapter viewPagerAdapter;
     private float x1;
@@ -65,7 +70,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
 
         //Image Switcher
         setupImageSwitcher();
-        picassoSwitcherHelper = new PicassoSwitcherHelper(this, imageSwitcher);
+        picassoSwitcherHelper = new PicassoSwitcherHelper(this, imageSwitcher, overlay);
         getAppDetails(plain);
 
         setupViewPager(viewPager);
@@ -75,7 +80,6 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     @Override
     protected void onResume(){
         super.onResume();
-
     }
 
     //region LoadInfo
@@ -118,6 +122,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             Picasso.with(this).load(imageUris.get(0))
                     .into(picassoSwitcherHelper);
             currentScreenshot = 0;
+            overlayText.setText(String.format("Metacritic Score \n %d", appDetail.getData().getMetacritic().getScore()));
         }
     }
     //endregion
