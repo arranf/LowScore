@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="party.hunchbacktank.isthereanydeal.fragments.GameInfo">
+    tools:context="party.hunchbacktank.lowscore.fragments.GameInfo">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

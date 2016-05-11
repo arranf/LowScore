@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="party.hunchbacktank.isthereanydeal">
+    package="party.hunchbacktank.lowscore">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- To cache -->
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="party.hunchbacktank.lowscore.activities.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name="party.hunchbacktank.lowscore.activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.DisplayGameActivity"
+            android:name="party.hunchbacktank.lowscore.activities.DisplayGameActivity"
             android:label="@string/title_activity_display_game"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
