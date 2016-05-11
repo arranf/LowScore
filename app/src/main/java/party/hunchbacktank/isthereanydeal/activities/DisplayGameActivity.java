@@ -169,7 +169,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                     }
 
                     // Right to left swipe action
-                    else if (imageUris != null && currentScreenshot < imageUris.size() )
+                    else if (imageUris != null && currentScreenshot < imageUris.size()-1 )
                     {
                         currentScreenshot++;
                         Picasso.with(this).load(imageUris.get(currentScreenshot))
