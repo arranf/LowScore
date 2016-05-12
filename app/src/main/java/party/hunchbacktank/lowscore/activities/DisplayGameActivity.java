@@ -2,6 +2,8 @@ package party.hunchbacktank.lowscore.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -46,13 +48,15 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private List<Uri> imageUris = new ArrayList<>();
     private int currentScreenshot;
     private int switcherHeight;
-
+    @BindView(R.id.app_bar_layout) AppBarLayout appBarLayout;
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.game_detail_tabs) TabLayout tabLayout;
     @BindView(R.id.game_detail_viewpager) ViewPager viewPager;
     @BindView(R.id.gamescreens_overlay) RelativeLayout overlay;
     @BindView(R.id.overlay_text) TextView overlayText;
 
+    private AppDetail appDetail;
     private ViewPagerAdapter viewPagerAdapter;
     private float x1;
     static final int MIN_DISTANCE = 150;
@@ -99,8 +103,8 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             @Override
             public void onResponse(Call<Map<String, AppDetail>> call, retrofit2.Response<Map<String, AppDetail>> response) {
                 if (response.body() != null) {
-                    AppDetail appDetail = response.body().get(appid);
-                    setUI(appDetail);
+                    appDetail = response.body().get(appid);
+                    setUI();
                 }
             }
 
@@ -112,8 +116,26 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         });
     }
 
-    public void setUI(AppDetail appDetail) {
-        toolbar.setTitle(appDetail.getData().getName());
+    public void setUI() {
+        //Set so title is hidden when not collapsed
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbar.setTitle(appDetail.getData().getName());
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbar.setTitle("");
+                    isShow = false;
+                }
+            }
+        });
         List<Screenshot> screenshots = appDetail.getData().getScreenshots();
         if (screenshots != null) {
             for (Screenshot screenshot : screenshots) {
@@ -230,6 +252,5 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     }
 
     //endregion
-
 
 }
