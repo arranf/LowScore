@@ -128,7 +128,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
 
     public void setUI() {
         //TODO Figure out how to make the icons disappear without this dodgy code XML? Parallax?
-        collapsingToolbar.setTitle(appDetail.getData().getName());
+        toolbar.setTitle(appDetail.getData().getName());
         //Set so title is hidden when not collapsed
         if (!titleListenerSet) {
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
