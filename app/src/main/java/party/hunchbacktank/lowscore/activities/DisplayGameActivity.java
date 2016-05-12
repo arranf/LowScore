@@ -170,6 +170,13 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     //endregion
 
     //region ImageSwitcher
+    public ProgressBar getSwitcherProgress() {
+        return switcherProgress;
+    }
+
+    public int getCurrentScreenshot() {
+        return currentScreenshot;
+    }
     protected void setupImageSwitcher() {
         imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
             public View makeView() {
@@ -205,6 +212,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                     {
                         if (imageUris !=null && currentScreenshot > 0) {
                             currentScreenshot--;
+                            switcherProgress.setIndeterminate(true);
                             Picasso.with(this).load(imageUris.get(currentScreenshot))
                                     .into(picassoSwitcherHelper);
 
@@ -215,11 +223,10 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                     else if (imageUris != null && currentScreenshot < imageUris.size()-1 )
                     {
                         currentScreenshot++;
+                        switcherProgress.setIndeterminate(true);
                         Picasso.with(this).load(imageUris.get(currentScreenshot))
                                 .into(picassoSwitcherHelper);
                     }
-                    switcherProgress.setProgress(currentScreenshot+1);
-
                 }
                 else
                 {
