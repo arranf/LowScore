@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context="party.hunchbacktank.lowscore.activities.DisplayGameActivity">
 
+    <!-- http://code.tutsplus.com/articles/scrolling-techniques-for-material-design&#x002D;-cms-24435 -->
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
@@ -40,7 +41,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

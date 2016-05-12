@@ -48,6 +48,9 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private List<Uri> imageUris = new ArrayList<>();
     private int currentScreenshot;
     private int switcherHeight;
+
+    @BindView(R.id.controller_support) ImageView controller;
+
     @BindView(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -128,17 +131,19 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         if (!titleListenerSet) {
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 boolean isShow = false;
-                int scrollRange = -1;
+                double scrollRange = -1;
 
                 @Override
                 public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                     if (scrollRange == -1) {
-                        scrollRange = -1*appBarLayout.getTotalScrollRange();
+                        scrollRange = -0.75*appBarLayout.getTotalScrollRange();
                     }
                     if (verticalOffset <= scrollRange) {
                         collapsingToolbar.setTitle(appDetail.getData().getName());
+                        controller.setVisibility(View.INVISIBLE);
                     } else {
                         collapsingToolbar.setTitle("");
+                        controller.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -152,8 +157,11 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             Picasso.with(this).load(imageUris.get(0))
                     .into(picassoSwitcherHelper);
             currentScreenshot = 0;
-            overlayText.setText(String.format("Metacritic Score \n %d", appDetail.getData().getMetacritic().getScore()));
+    }
+        if (appDetail.getData().getControllerSupport().toLowerCase().equals("full")){
+            Picasso.with(this).load(R.drawable.controller).into(controller);
         }
+
     }
     //endregion
 

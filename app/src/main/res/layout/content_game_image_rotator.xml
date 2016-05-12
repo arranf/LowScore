@@ -25,5 +25,55 @@
             android:layout_marginBottom="18dp"
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:id="@+id/controller_support"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/multiplayer_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/singleplayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/coop"
+                    android:contentDescription="@string/co_operative_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/multiplayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/compatibility_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <ImageView android:id="@+id/compatibility_1"
+                    android:scaleType="fitXY"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    />
+                <ImageView android:id="@+id/compatibility_2"
+                    android:scaleType="fitXY"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    />
+                <ImageView android:id="@+id/compatibility_3"
+                    android:scaleType="fitXY"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
     </RelativeLayout>
 </FrameLayout>
