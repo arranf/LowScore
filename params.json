@@ -1,6 +1,0 @@
-{
-  "name": "Lowscore",
-  "tagline": "Android app for finding PC game deals using the IsThereAnyDeal.com API",
-  "body": "# LowScore\r\nLowScore is an Android app for finding PC game deals.\r\n\r\nIt makes use of the IsThereAnyDeal.com API and also uses aggregate data from Steam and GOG.\r\n\r\nDeveloped by Arran France @arranf and Joel Clarke @DarthEmpty\r\n",
-  "note": "Don't delete this file! It's used internally to help with page regeneration."
-}
