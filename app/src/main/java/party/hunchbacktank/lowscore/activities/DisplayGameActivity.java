@@ -56,6 +56,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     @BindView(R.id.gamescreens_overlay) RelativeLayout overlay;
     @BindView(R.id.overlay_text) TextView overlayText;
 
+    private boolean titleListenerSet;
     private AppDetail appDetail;
     private ViewPagerAdapter viewPagerAdapter;
     private float x1;
@@ -67,6 +68,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_game);
         ButterKnife.bind(this);
+        collapsingToolbar.setTitle("");
 
         //Toolbar
         plain = getIntent().getStringExtra("plainName");
@@ -84,6 +86,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     @Override
     protected void onResume(){
         super.onResume();
+        collapsingToolbar.setTitle("");
     }
 
     //region LoadInfo
@@ -116,26 +119,31 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         });
     }
 
+    public void setTitleListenerFlag(){
+        titleListenerSet = true;
+    }
+
     public void setUI() {
         //Set so title is hidden when not collapsed
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
+        if (!titleListenerSet) {
+            appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+                boolean isShow = false;
+                int scrollRange = -1;
 
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
+                @Override
+                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                    if (scrollRange == -1) {
+                        scrollRange = -1*appBarLayout.getTotalScrollRange();
+                    }
+                    if (verticalOffset <= scrollRange) {
+                        collapsingToolbar.setTitle(appDetail.getData().getName());
+                    } else {
+                        collapsingToolbar.setTitle("");
+                    }
                 }
-                if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(appDetail.getData().getName());
-                    isShow = true;
-                } else if(isShow) {
-                    collapsingToolbar.setTitle("");
-                    isShow = false;
-                }
-            }
-        });
+            });
+            titleListenerSet = true;
+        }
         List<Screenshot> screenshots = appDetail.getData().getScreenshots();
         if (screenshots != null) {
             for (Screenshot screenshot : screenshots) {
