@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
@@ -50,7 +51,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private int switcherHeight;
 
     @BindView(R.id.controller_support) ImageView controller;
-
+    @BindView(R.id.switcher_progress) ProgressBar switcherProgress;
     @BindView(R.id.app_bar_layout) AppBarLayout appBarLayout;
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -126,6 +127,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     }
 
     public void setUI() {
+        //TODO Figure out how to make the icons disappear without this dodgy code XML? Parallax?
         collapsingToolbar.setTitle(appDetail.getData().getName());
         //Set so title is hidden when not collapsed
         if (!titleListenerSet) {
@@ -157,6 +159,8 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             Picasso.with(this).load(imageUris.get(0))
                     .into(picassoSwitcherHelper);
             currentScreenshot = 0;
+            switcherProgress.setMax(screenshots.size());
+            switcherProgress.setProgress(1);
     }
         if (appDetail.getData().getControllerSupport().toLowerCase().equals("full")){
             Picasso.with(this).load(R.drawable.controller).into(controller);
@@ -203,6 +207,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                             currentScreenshot--;
                             Picasso.with(this).load(imageUris.get(currentScreenshot))
                                     .into(picassoSwitcherHelper);
+
                         }
                     }
 
@@ -213,6 +218,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                         Picasso.with(this).load(imageUris.get(currentScreenshot))
                                 .into(picassoSwitcherHelper);
                     }
+                    switcherProgress.setProgress(currentScreenshot+1);
 
                 }
                 else
