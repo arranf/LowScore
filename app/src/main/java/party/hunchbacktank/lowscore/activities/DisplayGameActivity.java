@@ -76,7 +76,6 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         //Toolbar
         plain = getIntent().getStringExtra("plainName");
         setSupportActionBar(toolbar);
-
         //Image Switcher
         setupImageSwitcher();
         picassoSwitcherHelper = new PicassoSwitcherHelper(this, imageSwitcher, overlay);
@@ -127,6 +126,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     }
 
     public void setUI() {
+        collapsingToolbar.setTitle(appDetail.getData().getName());
         //Set so title is hidden when not collapsed
         if (!titleListenerSet) {
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -139,10 +139,10 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                         scrollRange = -0.75*appBarLayout.getTotalScrollRange();
                     }
                     if (verticalOffset <= scrollRange) {
-                        collapsingToolbar.setTitle(appDetail.getData().getName());
+                        //collapsingToolbar.setTitle(appDetail.getData().getName());
                         controller.setVisibility(View.INVISIBLE);
                     } else {
-                        collapsingToolbar.setTitle("");
+                        //collapsingToolbar.setTitle("");
                         controller.setVisibility(View.VISIBLE);
                     }
                 }

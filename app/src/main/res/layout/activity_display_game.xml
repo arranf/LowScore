@@ -22,55 +22,42 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/primary"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            app:titleEnabled="false">
 
 
             <include layout="@layout/content_game_image_rotator"
-                app:layout_collapseMode="parallax"
                 android:fitsSystemWindows="true"/>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin">
-            </android.support.v7.widget.Toolbar>
-
-
+                app:layout_scrollFlags="exitUntilCollapsed"
+                app:layout_collapseMode="pin"
+                app:title="Rocket League"/>
         </android.support.design.widget.CollapsingToolbarLayout>
-
+        <android.support.design.widget.TabLayout
+            android:id="@+id/game_detail_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_collapseMode="pin"
+            app:tabMode="fixed"
+            android:fitsSystemWindows="true"
+            app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:layout_below="@+id/toolbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="party.hunchbacktank.lowscore.activities.DisplayGameActivity"
-        tools:showIn="@layout/activity_display_game"
-        android:gravity="top">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/game_detail_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"/>
+
+
         <android.support.v4.view.ViewPager
             android:id="@+id/game_detail_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-    </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
