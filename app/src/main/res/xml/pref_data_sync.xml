@@ -18,4 +18,9 @@
         <intent android:action="android.settings.SYNC_SETTINGS" />
     </Preference>
 
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="send_usage_data"
+        android:title="@string/pref_title_send_usage_data" />
+
 </PreferenceScreen>
