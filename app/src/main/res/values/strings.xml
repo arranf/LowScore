@@ -37,6 +37,18 @@
         <item>-1</item>
     </string-array>
 
+    <string name="pref_title_currency">Currency</string>
+    <string-array name="pref_currency_list_titles">
+        <item>EUR (€)</item>
+        <item>GBR (£)</item>
+        <item>USD ($)</item>
+    </string-array>
+    <string-array name="pref_currency_list_values">
+        <item>EUR</item>
+        <item>GBR</item>
+        <item>USD</item>
+    </string-array>
+
     <!-- Settings: Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
