@@ -2,7 +2,7 @@ package party.hunchbacktank.lowscore.networking.steam;
 
 import java.util.Map;
 
-import party.hunchbacktank.lowscore.model.steam.AppDetail;
+import party.hunchbacktank.lowscore.model.steam.appdetails.AppDetail;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

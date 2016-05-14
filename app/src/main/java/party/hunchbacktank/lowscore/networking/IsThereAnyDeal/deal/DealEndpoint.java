@@ -1,6 +1,6 @@
 package party.hunchbacktank.lowscore.networking.isthereanydeal.deal;
 
-import party.hunchbacktank.lowscore.model.deals.DealResponse;
+import party.hunchbacktank.lowscore.model.isthereanydeal.recommendeddeal.DealResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

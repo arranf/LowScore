@@ -20,8 +20,8 @@ import java.util.GregorianCalendar;
 
 import party.hunchbacktank.lowscore.BuildConfig;
 import party.hunchbacktank.lowscore.R;
-import party.hunchbacktank.lowscore.model.authentication.Token;
-import party.hunchbacktank.lowscore.model.authentication.TokenRequestType;
+import party.hunchbacktank.lowscore.model.isthereanydeal.authentication.Token;
+import party.hunchbacktank.lowscore.model.isthereanydeal.authentication.TokenRequestType;
 import party.hunchbacktank.lowscore.networking.isthereanydeal.token.TokenEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;

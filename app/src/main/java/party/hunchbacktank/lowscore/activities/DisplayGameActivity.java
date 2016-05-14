@@ -30,13 +30,14 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
+import io.realm.Realm;
 import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.adapters.ViewPagerAdapter;
 import party.hunchbacktank.lowscore.fragments.GameInfo;
 import party.hunchbacktank.lowscore.fragments.GamePrices;
 import party.hunchbacktank.lowscore.helpers.PicassoSwitcherHelper;
-import party.hunchbacktank.lowscore.model.steam.AppDetail;
-import party.hunchbacktank.lowscore.model.steam.Screenshot;
+import party.hunchbacktank.lowscore.model.steam.appdetails.AppDetail;
+import party.hunchbacktank.lowscore.model.steam.appdetails.Screenshot;
 import party.hunchbacktank.lowscore.networking.steam.AppDetailsEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +50,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private List<Uri> imageUris = new ArrayList<>();
     private int currentScreenshot;
     private int switcherHeight;
+    private Realm realm;
 
     @BindView(R.id.controller_support) ImageView controller;
     @BindView(R.id.switcher_progress) ProgressBar switcherProgress;
@@ -73,6 +75,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         setContentView(R.layout.activity_display_game);
         ButterKnife.bind(this);
         collapsingToolbar.setTitle("");
+        realm = Realm.getDefaultInstance();
 
         //Toolbar
         plain = getIntent().getStringExtra("plainName");

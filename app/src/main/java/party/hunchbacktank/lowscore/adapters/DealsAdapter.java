@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.activities.DisplayGameActivity;
-import party.hunchbacktank.lowscore.model.deals.Deal;
+import party.hunchbacktank.lowscore.model.isthereanydeal.recommendeddeal.Deal;
 
 public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealHolder> {
 

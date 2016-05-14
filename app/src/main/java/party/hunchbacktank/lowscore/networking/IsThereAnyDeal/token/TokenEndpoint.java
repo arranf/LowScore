@@ -1,6 +1,6 @@
 package party.hunchbacktank.lowscore.networking.isthereanydeal.token;
 
-import party.hunchbacktank.lowscore.model.authentication.Token;
+import party.hunchbacktank.lowscore.model.isthereanydeal.authentication.Token;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
