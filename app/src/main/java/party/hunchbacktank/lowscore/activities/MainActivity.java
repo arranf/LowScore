@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import party.hunchbacktank.lowscore.BuildConfig;
 import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.adapters.DealsAdapter;
+import party.hunchbacktank.lowscore.helpers.SettingsHelper;
 import party.hunchbacktank.lowscore.model.deals.Deal;
 import party.hunchbacktank.lowscore.model.deals.DealResponse;
 import party.hunchbacktank.lowscore.networking.isthereanydeal.deal.DealEndpoint;
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity  {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            SettingsHelper.startSettingsActivity(this);
         }
 
         if (id == R.id.action_refresh){

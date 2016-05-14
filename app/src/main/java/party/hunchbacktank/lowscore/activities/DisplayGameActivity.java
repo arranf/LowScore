@@ -35,6 +35,7 @@ import party.hunchbacktank.lowscore.adapters.ViewPagerAdapter;
 import party.hunchbacktank.lowscore.fragments.GameInfo;
 import party.hunchbacktank.lowscore.fragments.GamePrices;
 import party.hunchbacktank.lowscore.helpers.PicassoSwitcherHelper;
+import party.hunchbacktank.lowscore.helpers.SettingsHelper;
 import party.hunchbacktank.lowscore.model.steam.AppDetail;
 import party.hunchbacktank.lowscore.model.steam.Screenshot;
 import party.hunchbacktank.lowscore.networking.steam.AppDetailsEndpoint;
@@ -263,7 +264,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            SettingsHelper.startSettingsActivity(this);
         }
 
         if (id == R.id.action_refresh){
