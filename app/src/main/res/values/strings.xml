@@ -37,16 +37,104 @@
         <item>-1</item>
     </string-array>
 
-    <string name="pref_title_currency">Currency</string>
-    <string-array name="pref_currency_list_titles">
-        <item>EUR (€)</item>
-        <item>GBR (£)</item>
-        <item>USD ($)</item>
+    <string name="pref_title_country">Country</string>
+    <string-array name="pref_country_list_titles">
+        <item>Albania</item>
+        <item>Andorra</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Belgium</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Brazil</item>
+        <item>Bulgaria</item>
+        <item>Canada</item>
+        <item>China</item>
+        <item>Croatia</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Denmark</item>
+        <item>Estonia</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Greece</item>
+        <item>Hungary</item>
+        <item>Ireland</item>
+        <item>Italy</item>
+        <item>Latvia</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macedonia</item>
+        <item>Malta</item>
+        <item>Monaco</item>
+        <item>Montenegro</item>
+        <item>Netherlands</item>
+        <item>Norway</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>San Marino</item>
+        <item>Serbia</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Spain</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Turkey</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Vatican City</item>
     </string-array>
-    <string-array name="pref_currency_list_values">
-        <item>EUR</item>
-        <item>GBR</item>
-        <item>USD</item>
+    <string-array name="pref_country_list_values">
+        <item>AL, €, EUR, eu1</item>
+        <item>AD, €, EUR, eu1</item>
+        <item>AU, $, USD, au</item>
+        <item>AT, €, EUR, eu1</item>
+        <item>BE, €, EUR, eu1</item>
+        <item>BA, €, EUR, eu2</item>
+        <item>BR, $, USD, br</item>
+        <item>BG, €, EUR, eu2</item>
+        <item>CA, $, CAD, ca</item>
+        <item>CN, ¥, CNY, cn</item>
+        <item>HR, €, EUR, eu2</item>
+        <item>CY, €, EUR, eu2</item>
+        <item>CZ, €, EUR, eu2</item>
+        <item>DK, €, EUR, eu1</item>
+        <item>EE, €, EUR, eu2</item>
+        <item>FI, €, EUR, eu1</item>
+        <item>FR, €, EUR, eu1</item>
+        <item>DE, €, EUR, eu1</item>
+        <item>GR, €, EUR, eu2</item>
+        <item>HU, €, EUR, eu2</item>
+        <item>IE, €, EUR, eu1</item>
+        <item>IT, €, EUR, eu2</item>
+        <item>LV, €, EUR, eu2</item>
+        <item>LI, €, EUR, eu1</item>
+        <item>LT, €, EUR, eu2</item>
+        <item>LU, €, EUR, eu1</item>
+        <item>MK, €, EUR, eu1</item>
+        <item>MT, €, EUR, eu2</item>
+        <item>MC, €, EUR, eu2</item>
+        <item>ME, €, EUR, eu2</item>
+        <item>NL, €, EUR, eu1</item>
+        <item>NO, €, EUR, eu2</item>
+        <item>PL, €, EUR, eu2</item>
+        <item>PT, €, EUR, eu2</item>
+        <item>RO, €, EUR, eu2</item>
+        <item>RU, руб, RUB, ru</item>
+        <item>SM, €, EUR, eu2</item>
+        <item>RS, €, EUR, eu2</item>
+        <item>SK, €, EUR, eu2</item>
+        <item>SI, €, EUR, eu2</item>
+        <item>ES, €, EUR, eu2</item>
+        <item>SE, €, EUR, eu1</item>
+        <item>CH, €, EUR, eu1</item>
+        <item>TR, TL, TRY, tr</item>
+        <item>GB, £, GBP, uk</item>
+        <item>US, $, USD, us</item>
+        <item>VA, €, EUR, eu2</item>
     </string-array>
 
     <!-- Settings: Notifications -->
