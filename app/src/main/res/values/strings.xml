@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="itad_api">https://api.isthereanydeal.com</string>
     <string name="steam_api_base">http://store.steampowered.com/api/</string>
-   <string name="title_activity_main"></string>
+    <string name="title_activity_main"></string>
     <string name="title_activity_display_game"></string>
+    <string name="pref_previously_run">previous_run</string>
 </resources>

@@ -1,6 +1,9 @@
 package party.hunchbacktank.lowscore.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +44,14 @@ public class MainActivity extends AppCompatActivity  {
         ButterKnife.bind(this);
         toolbar.setTitle("Recommended Deals");
         setSupportActionBar(toolbar);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_run), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_run), Boolean.TRUE);
+            edit.apply();
+            doMigration();
+        }
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         //TODO Rewrite the adapter for our needs
@@ -48,6 +59,7 @@ public class MainActivity extends AppCompatActivity  {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         getDeals();
+
     }
 
     @Override
@@ -80,6 +92,10 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void doMigration(){
+        startActivity(new Intent(this, MigrationActivity.class));
     }
 
     public void getDeals(){

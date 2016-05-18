@@ -4,7 +4,7 @@ package party.hunchbacktank.lowscore.model.steam.appdetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PcRequirements {
+public class Requirements {
 
     @SerializedName("minimum")
     @Expose

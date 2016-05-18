@@ -1,6 +1,4 @@
-
 package party.hunchbacktank.lowscore.model;
-
 
 import java.util.Date;
 
@@ -11,7 +9,10 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import party.hunchbacktank.lowscore.model.realm.RealmString;
 
-public class Game extends RealmObject{
+/**
+ * Created by Arran on 18/05/2016.
+ */
+public class Game extends RealmObject {
     @Required
     @Index
     @PrimaryKey
@@ -22,17 +23,15 @@ public class Game extends RealmObject{
     @Required
     @Index
     private String title;
-    @Required
     private String description;
     private String publisher;
     private String developer;
     private Date releaseDate;
 
-
     private RealmList<Review> reviews;
     //TODO Implement GSON adapter
-    /* Implemented as objects as suggested by Realm guy from SO
-    Gist explains how: https://gist.github.com/cmelchior/1a97377df0c49cd4fca9 */
+/* Implemented as objects as suggested by Realm guy from SO
+Gist explains how: https://gist.github.com/cmelchior/1a97377df0c49cd4fca9 */
     private RealmList<RealmString> genres;
     private RealmList<RealmString> supportedLanguages;
     private String headerImage;

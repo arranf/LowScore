@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,11 +33,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnTouch;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.adapters.ViewPagerAdapter;
 import party.hunchbacktank.lowscore.fragments.GameInfo;
 import party.hunchbacktank.lowscore.fragments.GamePrices;
+import party.hunchbacktank.lowscore.helpers.AppDetailDeserializer;
 import party.hunchbacktank.lowscore.helpers.PicassoSwitcherHelper;
+import party.hunchbacktank.lowscore.model.Game;
 import party.hunchbacktank.lowscore.model.steam.appdetails.AppDetail;
 import party.hunchbacktank.lowscore.model.steam.appdetails.Screenshot;
 import party.hunchbacktank.lowscore.networking.steam.AppDetailsEndpoint;
@@ -68,6 +73,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     private float x1;
     static final int MIN_DISTANCE = 150;
     private String plain;
+    private String appid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,17 +102,19 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
     }
 
     //region LoadInfo
-    private void getAppDetails(String plain){
+    private void getAppDetails(String plain) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(AppDetail.class, new AppDetailDeserializer());
+        Gson gson = gsonBuilder.create();
         Retrofit.Builder builder = new Retrofit.Builder()
-                //TODO Change the string resource to butterknife
                 .baseUrl(getString(R.string.steam_api_base))
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(GsonConverterFactory.create(gson));
         Retrofit retrofit = builder.build();
-
         AppDetailsEndpoint appDetailsEndpoint = retrofit.create(AppDetailsEndpoint.class);
 
-        //TODO Change this to get a real Steam App Id
-        final String appid = "252950";
+        RealmResults<Game> gameRealmResults = realm.where(Game.class).equalTo("plain", plain).findAll();
+        if (!gameRealmResults.isEmpty()) {
+            final String appid = Integer.toString(gameRealmResults.first().getSteamAppId());
         Call<Map<String, AppDetail>> call = appDetailsEndpoint.get(appid);
         call.enqueue(new Callback<Map<String, AppDetail>>() {
             @Override
@@ -123,6 +131,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
                 //TODO Prompt for second attempt, explain error to user
             }
         });
+    }
     }
 
     public void setTitleListenerFlag(){
@@ -165,7 +174,7 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
             switcherProgress.setMax(screenshots.size());
             switcherProgress.setProgress(1);
     }
-        if (appDetail.getData().getControllerSupport().toLowerCase().equals("full")){
+        if (appDetail.getData().getControllerSupport() !=null && appDetail.getData().getControllerSupport().toLowerCase().equals("full")){
             Picasso.with(this).load(R.drawable.controller).into(controller);
         }
 

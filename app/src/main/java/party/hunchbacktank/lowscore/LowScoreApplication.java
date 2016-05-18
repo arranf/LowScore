@@ -12,7 +12,7 @@ public class LowScoreApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        RealmConfiguration config = new RealmConfiguration.Builder(this).build();
+        RealmConfiguration config = new RealmConfiguration.Builder(this).name("grail.realm").build();
         Realm.setDefaultConfiguration(config);
     }
 }

@@ -47,13 +47,13 @@ public class Data {
     private String website;
     @SerializedName("pc_requirements")
     @Expose
-    private PcRequirements pcRequirements;
+    private Requirements pcRequirements;
     @SerializedName("mac_requirements")
     @Expose
-    private List<Object> macRequirements = new ArrayList<Object>();
+    private Requirements macRequirements;
     @SerializedName("linux_requirements")
     @Expose
-    private LinuxRequirements linuxRequirements;
+    private Requirements linuxRequirements;
     @SerializedName("legal_notice")
     @Expose
     private String legalNotice;
@@ -322,57 +322,35 @@ public class Data {
         this.website = website;
     }
 
-    /**
-     * 
-     * @return
-     *     The pcRequirements
-     */
-    public PcRequirements getPcRequirements() {
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
+    public Requirements getPcRequirements() {
         return pcRequirements;
     }
 
-    /**
-     * 
-     * @param pcRequirements
-     *     The pc_requirements
-     */
-    public void setPcRequirements(PcRequirements pcRequirements) {
+    public void setPcRequirements(Requirements pcRequirements) {
         this.pcRequirements = pcRequirements;
     }
 
-    /**
-     * 
-     * @return
-     *     The macRequirements
-     */
-    public List<Object> getMacRequirements() {
+    public Requirements getMacRequirements() {
         return macRequirements;
     }
 
-    /**
-     * 
-     * @param macRequirements
-     *     The mac_requirements
-     */
-    public void setMacRequirements(List<Object> macRequirements) {
+    public void setMacRequirements(Requirements macRequirements) {
         this.macRequirements = macRequirements;
     }
 
-    /**
-     * 
-     * @return
-     *     The linuxRequirements
-     */
-    public LinuxRequirements getLinuxRequirements() {
+    public Requirements getLinuxRequirements() {
         return linuxRequirements;
     }
 
-    /**
-     * 
-     * @param linuxRequirements
-     *     The linux_requirements
-     */
-    public void setLinuxRequirements(LinuxRequirements linuxRequirements) {
+    public void setLinuxRequirements(Requirements linuxRequirements) {
         this.linuxRequirements = linuxRequirements;
     }
 
