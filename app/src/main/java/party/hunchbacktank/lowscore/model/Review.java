@@ -1,12 +1,12 @@
 package party.hunchbacktank.lowscore.model;
 
-import io.realm.RealmModel;
+import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 
 /**
  * Created by Arran on 10/05/2016.
  */
-public class Review implements RealmModel{
+public class Review extends RealmObject{
     private String reviewTypeValue;
     private int score;
     private long total;
