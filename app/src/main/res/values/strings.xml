@@ -137,6 +137,78 @@
         <item>VA, €, EUR, eu2</item>
     </string-array>
 
+    <string name="pref_title_preferred_stores">Preferred Stores</string>
+    <string-array name="pref_store_list_titles">
+        <item>Amazon</item>
+        <item>Bundle Stars</item>
+        <item>Coinplay.io</item>
+        <item>DLGamer</item>
+        <item>Desura</item>
+        <item>Direct2Drive</item>
+        <item>DotEmu</item>
+        <item>FireFlower</item>
+        <item>FunStock Digital</item>
+        <item>GOG</item>
+        <item>GameBillet</item>
+        <item>GameStop PC</item>
+        <item>GamersGate</item>
+        <item>GamesPlanet DE</item>
+        <item>GamesPlanet FR</item>
+        <item>GamesPlanet UK</item>
+        <item>GamesRepblic</item>
+        <item>GreenMan Gaming</item>
+        <item>Humble Store</item>
+        <item>Humble Widgets</item>
+        <item>Imperial Games</item>
+        <item>IndieGala Store</item>
+        <item>IndoeGameStand</item>
+        <item>MacGameStore</item>
+        <item>Newegg</item>
+        <item>Nuuvem</item>
+        <item>Origin PC</item>
+        <item>Playfield</item>
+        <item>SilaGames</item>
+        <item>Square Enix</item>
+        <item>Steam</item>
+        <item>Uplay PC</item>
+        <item>WinGameStore</item>
+    </string-array>
+    <string-array name="pref_store_list_values">
+        <item>amazon</item>
+        <item>bundlestars</item>
+        <item>coinplay.io</item>
+        <item>dlgamer</item>
+        <item>desura</item>
+        <item>direct2drive</item>
+        <item>dotemu</item>
+        <item>fireflower</item>
+        <item>funstockdigital</item>
+        <item>gog</item>
+        <item>gamebillet</item>
+        <item>gamestoppc</item>
+        <item>gamersgate</item>
+        <item>gamesplanetde</item>
+        <item>gamesplanetfr</item>
+        <item>gamesplanet</item>
+        <item>gamesrepblic</item>
+        <item>greenmangaming</item>
+        <item>humblestore</item>
+        <item>humblewidgets</item>
+        <item>imperialgames</item>
+        <item>indiegalastore</item>
+        <item>indoegamestand</item>
+        <item>macgamestore</item>
+        <item>newegg</item>
+        <item>nuuvem</item>
+        <item>originpc</item>
+        <item>playfield</item>
+        <item>silagames</item>
+        <item>squareenix</item>
+        <item>steam</item>
+        <item>uplaypc</item>
+        <item>wingamestore</item>
+    </string-array>
+
     <!-- Settings: Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
