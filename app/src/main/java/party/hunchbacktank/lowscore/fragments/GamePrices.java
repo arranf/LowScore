@@ -1,109 +1,98 @@
 package party.hunchbacktank.lowscore.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import party.hunchbacktank.lowscore.BuildConfig;
 import party.hunchbacktank.lowscore.R;
+import party.hunchbacktank.lowscore.adapters.PricesAdapter;
+import party.hunchbacktank.lowscore.model.isthereanydeal.prices.Price;
+import party.hunchbacktank.lowscore.model.isthereanydeal.prices.PriceResponse;
+import party.hunchbacktank.lowscore.networking.isthereanydeal.PricesEndpoint;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GamePrices.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link GamePrices#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class GamePrices extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "GamePrices";
+    private static final String KEY_LAYOUT_MANAGER = "layoutManager";
+    private static final int SPAN_COUNT = 2;
+    private static final int DATASET_COUNT = 60;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.recycler_view_prices)
+    protected RecyclerView recyclerView;
+    protected PricesAdapter pricesAdapter;
+    protected RecyclerView.LayoutManager layoutManager;
+    protected List<Price> prices = new ArrayList<Price>() {};
+    String plain;
 
-    private OnFragmentInteractionListener mListener;
+    public GamePrices(){}
 
-    public GamePrices() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GamePrices.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GamePrices newInstance(String param1, String param2) {
-        GamePrices fragment = new GamePrices();
+    public static GamePrices newInstance(String plain){
+        GamePrices gamePrices = new GamePrices();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+        args.putString("plain", plain);
+        gamePrices.setArguments(args);
+        return gamePrices;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        if (savedInstanceState != null && getArguments().containsKey("plain")) {
+            plain = getArguments().get("plain").toString();
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game_prices, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        View rootView = inflater.inflate(R.layout.fragment_game_prices, container, false);
+        ButterKnife.bind(this, rootView);
+        rootView.setTag(TAG);
+        if (savedInstanceState != null || (plain != null) && !plain.isEmpty()) {
+            plain = getArguments().getString("plain");
+            pricesAdapter = new PricesAdapter(recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(pricesAdapter);
+            getPrices();
         }
+        return rootView;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
+    private void getPrices(){
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(getString(R.string.itad_api))
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+        PricesEndpoint pricesEndpoint = retrofit.create(PricesEndpoint.class);
+        Call<PriceResponse> call = pricesEndpoint.fetchSingle(BuildConfig.API_KEY, "uk", plain);
+        call.enqueue(new Callback<PriceResponse>() {
+            @Override
+            public void onResponse(Call<PriceResponse> call, retrofit2.Response<PriceResponse> response) {
+                if (response.body() != null) {
+                    pricesAdapter.setPrices(response.body().getData().get(plain).getPrices());
+                }
+            }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+            @Override
+            public void onFailure(Call<PriceResponse> call, Throwable e) {
+                e.printStackTrace();
+                //TODO Prompt for second attempt, explain error to user
+            }
+        });
     }
 }

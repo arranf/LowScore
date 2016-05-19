@@ -23,7 +23,7 @@ import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.adapters.DealsAdapter;
 import party.hunchbacktank.lowscore.model.isthereanydeal.recommendeddeal.Deal;
 import party.hunchbacktank.lowscore.model.isthereanydeal.recommendeddeal.DealResponse;
-import party.hunchbacktank.lowscore.networking.isthereanydeal.deal.DealEndpoint;
+import party.hunchbacktank.lowscore.networking.isthereanydeal.DealEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;

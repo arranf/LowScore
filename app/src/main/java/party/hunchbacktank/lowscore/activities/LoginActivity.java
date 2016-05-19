@@ -22,7 +22,7 @@ import party.hunchbacktank.lowscore.BuildConfig;
 import party.hunchbacktank.lowscore.R;
 import party.hunchbacktank.lowscore.model.isthereanydeal.authentication.Token;
 import party.hunchbacktank.lowscore.model.isthereanydeal.authentication.TokenRequestType;
-import party.hunchbacktank.lowscore.networking.isthereanydeal.token.TokenEndpoint;
+import party.hunchbacktank.lowscore.networking.isthereanydeal.TokenEndpoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;

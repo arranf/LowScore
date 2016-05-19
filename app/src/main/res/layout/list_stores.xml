@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/store_item">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Store Name"
+        android:id="@+id/list_stores_store_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/list_stores_price_context"
+        android:layout_alignStart="@+id/list_stores_price_context"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Price Info"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/list_stores_price_context"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:textStyle="italic"
+        android:typeface="normal"
+        android:layout_below="@+id/list_stores_store_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="£0.00"
+        android:id="@+id/list_stores_price"
+        android:layout_marginLeft="45dp"
+        android:layout_marginStart="45dp"
+        android:layout_alignTop="@+id/list_stores_store_name"
+        android:layout_toRightOf="@+id/list_stores_store_name"
+        android:layout_toEndOf="@+id/list_stores_store_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cheapest"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/list_stores_cheap"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_alignBaseline="@+id/list_stores_price"
+        android:layout_alignBottom="@+id/list_stores_price"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_stores_drm_icon"
+        android:src="@drawable/steam"
+        android:layout_marginRight="11dp"
+        android:layout_marginEnd="11dp"
+        android:layout_alignTop="@+id/list_stores_cheap"
+        android:layout_toLeftOf="@+id/list_stores_cheap"
+        android:layout_toStartOf="@+id/list_stores_cheap" />
+</RelativeLayout>

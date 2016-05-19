@@ -49,7 +49,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DisplayGameActivity extends AppCompatActivity implements GamePrices.OnFragmentInteractionListener {
+public class DisplayGameActivity extends AppCompatActivity {
     @BindView(R.id.gamescreens) ImageSwitcher imageSwitcher;
     private PicassoSwitcherHelper picassoSwitcherHelper;
     private List<Uri> imageUris = new ArrayList<>();
@@ -258,10 +258,6 @@ public class DisplayGameActivity extends AppCompatActivity implements GamePrices
         viewPager.setAdapter(viewPagerAdapter);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri){
-
-    }
     //endregion
 
     //region Menu

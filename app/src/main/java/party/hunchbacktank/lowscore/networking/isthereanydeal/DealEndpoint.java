@@ -1,4 +1,4 @@
-package party.hunchbacktank.lowscore.networking.isthereanydeal.deal;
+package party.hunchbacktank.lowscore.networking.isthereanydeal;
 
 import party.hunchbacktank.lowscore.model.isthereanydeal.recommendeddeal.DealResponse;
 import retrofit2.Call;
