@@ -19,22 +19,17 @@ public class AppDetailDeserializer implements JsonDeserializer<AppDetail>
     @Override
     public AppDetail deserialize(JsonElement je, Type type,
                                      JsonDeserializationContext jdc)
-            throws JsonParseException
-    {
+            throws JsonParseException {
         JsonObject obj = je.getAsJsonObject();
-        if (obj.get("mac_requirements") != null && obj.get("mac_requirements").isJsonArray())
-        {
-            obj.remove("mac_requirements");
-        }
-        if (obj.get("linux_requirements") != null && obj.get("linux_requirements").isJsonArray())
-        {
-            obj.remove("linux_requirements");
-        }
-        if (obj.get("pc_requirements") != null && obj.get("pc_requirements").isJsonArray())
-        {
-            obj.remove("pc_requirements");
-        }
-
+            if (obj.get("data").getAsJsonObject().get("mac_requirements").isJsonArray()) {
+                obj.get("data").getAsJsonObject().remove("mac_requirements");
+            }
+            if (obj.get("data").getAsJsonObject().get("linux_requirements").isJsonArray()) {
+                obj.get("data").getAsJsonObject().remove("linux_requirements");
+            }
+            if (obj.get("data").getAsJsonObject().get("pc_requirements").isJsonArray()) {
+                obj.get("data").getAsJsonObject().remove("pc_requirements");
+            }
         return new Gson().fromJson(obj, AppDetail.class);
     }
 }
