@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -74,6 +75,7 @@ public class DisplayGameActivity extends AppCompatActivity {
     static final int MIN_DISTANCE = 150;
     private String plain;
     private String appid;
+    private String TAG = "DisplayGameActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +115,7 @@ public class DisplayGameActivity extends AppCompatActivity {
         AppDetailsEndpoint appDetailsEndpoint = retrofit.create(AppDetailsEndpoint.class);
 
         RealmResults<Game> gameRealmResults = realm.where(Game.class).equalTo("plain", plain).findAll();
-        if (!gameRealmResults.isEmpty()) {
+        if (!gameRealmResults.isEmpty() && gameRealmResults.first().getSteamAppId() != 0 ) {
             final String appid = Integer.toString(gameRealmResults.first().getSteamAppId());
         Call<Map<String, AppDetail>> call = appDetailsEndpoint.get(appid);
         call.enqueue(new Callback<Map<String, AppDetail>>() {
@@ -127,7 +129,7 @@ public class DisplayGameActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Map<String, AppDetail>> call, Throwable e) {
-                e.printStackTrace();
+                Log.e(TAG, e.getStackTrace().toString());
                 //TODO Prompt for second attempt, explain error to user
             }
         });
@@ -253,7 +255,8 @@ public class DisplayGameActivity extends AppCompatActivity {
     //region Tabs
     private void setupViewPager(ViewPager viewPager) {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new GamePrices(), "Stores");
+        GamePrices gamePrices = GamePrices.newInstance(plain);
+        viewPagerAdapter.addFragment(gamePrices, "Stores");
         viewPagerAdapter.addFragment(new GameInfo(), "Info");
         viewPager.setAdapter(viewPagerAdapter);
     }

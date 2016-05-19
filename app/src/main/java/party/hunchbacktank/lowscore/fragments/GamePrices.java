@@ -27,9 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GamePrices extends Fragment {
     private static final String TAG = "GamePrices";
-    private static final String KEY_LAYOUT_MANAGER = "layoutManager";
-    private static final int SPAN_COUNT = 2;
-    private static final int DATASET_COUNT = 60;
 
     @BindView(R.id.recycler_view_prices)
     protected RecyclerView recyclerView;
@@ -51,18 +48,17 @@ public class GamePrices extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null && getArguments().containsKey("plain")) {
+        if (getArguments().containsKey("plain") && getArguments().get("plain") != null) {
             plain = getArguments().get("plain").toString();
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_game_prices, container, false);
         ButterKnife.bind(this, rootView);
         rootView.setTag(TAG);
-        if (savedInstanceState != null || (plain != null) && !plain.isEmpty()) {
+        if (savedInstanceState != null || plain != null) {
             plain = getArguments().getString("plain");
             pricesAdapter = new PricesAdapter(recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
